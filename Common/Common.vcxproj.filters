@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Private">
+      <UniqueIdentifier>{8ee54349-8e04-459b-96a2-b718d075174b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public">
+      <UniqueIdentifier>{fc33be16-36e4-4666-97b6-ec754a101b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Pch">
+      <UniqueIdentifier>{131c2aae-6321-45cf-b1ee-3626ebf5a774}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Private\Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Private\Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Private\Pch</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

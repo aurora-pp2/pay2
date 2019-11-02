@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Public">
+      <UniqueIdentifier>{bd915d70-6c7b-4375-aa48-cbedaad5558f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private">
+      <UniqueIdentifier>{311df07a-8294-4e2f-9067-830c35682ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Pch">
+      <UniqueIdentifier>{19d3cf11-872d-465e-ab28-e2a62931425f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Private\Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Private\Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Listener.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Private\Pch</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Listener.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
