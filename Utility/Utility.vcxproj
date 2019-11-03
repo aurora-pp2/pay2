@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="json11.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

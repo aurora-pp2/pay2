@@ -9,26 +9,19 @@
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 
-/*
-template <typename T>
-using MakeShared = boost::make_shared<T>;
-*/
-
-// reference additional headers your program requires here
-
-#include <algorithm>
-#include <cstdlib>
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <string>
+#include <csignal>
 #include <thread>
-#include <vector>
-#include <memory>
-#include <string_view>
+#include <iostream>
+#include <mutex>
+#include <atomic>
 
-#include <boost/exception/all.hpp>
+#include <boost/asio/io_context.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/asio/ip/tcp.hpp>
+
 #include <boost/beast/core.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/smart_ptr.hpp>
+
+// reference additional headers your program requires here

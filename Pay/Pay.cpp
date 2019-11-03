@@ -1,9 +1,7 @@
 #include "pch.h"
 
-#include "Pay/PayServer.h"
-//#include <windows.h>
-
-//#pragma comment(lib,"Advapi32")
+#include "Server/GameServer.h"
+#include "SevenPoker/SevenPoker.h"
 
 static std::mutex m;
 static std::condition_variable cv;
@@ -16,6 +14,11 @@ static void SignalHandler(int /*signal_val*/) {
     cv.notify_all();
 }
 
+static bool Initialize() {
+    if (!SevenPoker::Initialize()) return false;
+    return true;
+}
+
 int main() {
     // 서버 종료 ctrl + break
     std::signal(SIGBREAK, SignalHandler);
@@ -25,6 +28,9 @@ int main() {
     std::locale::global(std::locale(""));
     std::wcout.imbue(std::locale(""));
 
+    // 초기화
+    if (!Initialize()) return false;
+
     std::unique_lock<std::mutex> lock(m);
 
     // The io_context is required for all I/O
@@ -32,7 +38,7 @@ int main() {
 
     const auto address = boost::asio::ip::make_address("127.0.0.1");
 
-    std::make_shared<Network::PayServer>(
+    std::make_shared<Server::GameServer>(
         io_context,
         boost::asio::ip::tcp::endpoint{ address, 3000 }
     )->Run();

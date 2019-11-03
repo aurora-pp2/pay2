@@ -14,7 +14,7 @@ public:
     explicit PaySession(tcp::socket socket);
     virtual ~PaySession();
 
-    static bool RegisterHandler (int packet_id, HandlerCallback handler);
+    static bool RegisterHandler(int packet_id, HandlerCallback handler);
 
 private:
     void OnRead(Beast::error_code ec, std::size_t bytes_transferred) override;

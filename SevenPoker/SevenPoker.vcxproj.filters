@@ -18,10 +18,19 @@
     <ClInclude Include="targetver.h">
       <Filter>Private\Pch</Filter>
     </ClInclude>
-    <ClInclude Include="Table.h">
-      <Filter>Public</Filter>
+    <ClInclude Include="Packet.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Private</Filter>
     </ClInclude>
     <ClInclude Include="TableManager.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="SevenPoker.h">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,5 +44,17 @@
     <ClCompile Include="TableManager.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SevenPoker.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
