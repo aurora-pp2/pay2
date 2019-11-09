@@ -27,19 +27,19 @@
     <ClInclude Include="TableManager.h">
       <Filter>Private</Filter>
     </ClInclude>
-    <ClInclude Include="Table.h">
-      <Filter>Private</Filter>
-    </ClInclude>
     <ClInclude Include="SevenPoker.h">
       <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SevenPokerTable.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="SevenPokerPlayer.h">
+      <Filter>Private</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Private\Pch</Filter>
-    </ClCompile>
-    <ClCompile Include="Table.cpp">
-      <Filter>Private</Filter>
     </ClCompile>
     <ClCompile Include="TableManager.cpp">
       <Filter>Private</Filter>
@@ -51,6 +51,12 @@
       <Filter>Private</Filter>
     </ClCompile>
     <ClCompile Include="SevenPoker.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SevenPokerTable.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SevenPokerPlayer.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>

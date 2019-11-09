@@ -158,11 +158,23 @@ void Session::OnWrite(boost::beast::error_code ec, std::size_t) {
 }
 
 void Session::Close() {
+
+    boost::asio::post(
+        websocket_.get_executor(),
+        boost::beast::bind_front_handler(
+            [this, self = shared_from_this()] {
+                websocket_.close(boost::beast::websocket::close_reason());
+            }
+        )
+    );
+
+    /*
     try {
         websocket_.close(boost::beast::websocket::close_reason());
     } catch (...) {
         std::cout << boost::current_exception_diagnostic_information() << std::endl;
     }
+    */
     /*
     catch (const boost::exception& e) {
         e.what();

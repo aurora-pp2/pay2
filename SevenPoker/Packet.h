@@ -6,27 +6,53 @@ namespace Server {
 class GameSession;
 } // namespace Server
 
+namespace GamePlay {
+    class Player;
+}
+
 namespace SevenPoker {
 
-enum PacketType { kReqJoinSevenPokerTable = 20, kResJoinSevenPokerTable };
+enum PacketType { kReqJoinSevenTable = 20, kResJoinSevenTable, kNotiSevenTablePlayerInfo, kNotiOtherPlayerLeaveSevenTable };
 
-struct ReqJoinSevenPokerTable {
-    static const size_t kPacketId = PacketType::kReqJoinSevenPokerTable;
+struct ReqJoinTable {
+    static const size_t kPacketId = kReqJoinSevenTable;
     int32_t number = 1;
     std::string message;
 
     static bool Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload);
 };
 
-struct ResJoinSevenPokerTable {
-    static const size_t kPacketId = PacketType::kResJoinSevenPokerTable;
+struct ResJoinTable {
+    static const size_t kPacketId = kResJoinSevenTable;
 
-    ResJoinSevenPokerTable(bool success, int32_t number, const std::string& message);
+    ResJoinTable(bool success, int32_t number, const std::string& message);
+
+    bool success_ = false;
+    int number_ = 1;
+    std::string message_;
+    Payload ToJson() const;
+};
+
+struct NotiTablePlayerInfo {
+    static const size_t kPacketId = kNotiSevenTablePlayerInfo;
+
+    NotiTablePlayerInfo(GamePlay::Player*);
+   
+    GamePlay::Player* player_;
+    Payload ToJson() const;
+};
+
+/*
+struct NotiOtherPlayerLeaveTable {
+    static const size_t kPacketId = kNotiOtherPlayerLeaveSevenTable;
+
+    NotiOtherPlayerLeaveTable(bool success, int32_t number, const std::string& message);
 
     bool success_ = false;
     int number_ = 1;
     std::string message_;
     Payload ToJson();
 };
+*/
 
 } // namespace SevenPoker

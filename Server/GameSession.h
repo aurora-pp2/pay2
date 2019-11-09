@@ -2,6 +2,11 @@
 
 #include "Network/Session.h"
 #include "Utility/Common.h"
+#include <memory>
+
+namespace GamePlay {
+class Player;
+} // namespace GamePlay
 
 namespace Server {
 
@@ -18,11 +23,20 @@ public:
 
     void Send(const Payload& payload);
 
+    std::shared_ptr<GamePlay::Player> player() const;
+    void set_player(std::shared_ptr<GamePlay::Player> player);
+
+    size_t uid() const;
+    void set_uid(size_t uid);
+
 private:
     void OnRead(boost::beast::error_code ec, std::size_t bytes_transferred) override;
     bool OnHandle(const std::string& payload) override;
 
-    
+    size_t uid_;
+    //std::shared_ptr<GamePlay::Player> player_;
+    std::weak_ptr<GamePlay::Player> player_;
+    std::mutex mutex_;
 };
 
 } // namespace Server

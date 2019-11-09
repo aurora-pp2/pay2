@@ -68,4 +68,22 @@ bool GameSession::OnHandle(const std::string& payload) {
     return handlers[packet_id](std::static_pointer_cast<GameSession>(shared_from_this()), json);
 }
 
+std::shared_ptr<GamePlay::Player> GameSession::player() const {
+    //std::shared_ptr<GamePlay::Player>player = std::atomic_load(&player_);
+    return player_.lock();
+}
+
+void GameSession::set_player(std::shared_ptr<GamePlay::Player> player) {
+    //std::atomic_exchange(&player_, player);
+    player_ = player;
+}
+
+size_t GameSession::uid() const {
+    return uid_;
+}
+
+void GameSession::set_uid(size_t uid) {
+    uid_ = uid;
+}
+
 } // namespace Network

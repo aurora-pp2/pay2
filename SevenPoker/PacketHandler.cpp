@@ -9,10 +9,7 @@ namespace SevenPoker {
 
 bool PacketHandler::RegisterHandler() {
     using namespace Server;
-
-    if (!GameSession::RegisterHandler(ReqJoinSevenPokerTable::kPacketId, ReqJoinSevenPokerTable::Handler)) return false;
-
-    return true;
+    return GameSession::RegisterHandler(ReqJoinTable::kPacketId, ReqJoinTable::Handler);
 }
 
 } // namespace SevenPoker

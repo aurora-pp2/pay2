@@ -1,9 +1,18 @@
 #include "stdafx.h"
-
 #include "SevenPoker/Packet.h"
+
+// outer project
 #include "Server/GameSession.h"
+#include "GamePlay/Player.h"
+
+// inner project 
+#include "SevenPoker/TableManager.h"
+#include "SevenPoker/SevenPokerTable.h"
+
 
 using Json = json11::Json;
+
+using namespace GamePlay;
 
 namespace SevenPoker {
 
@@ -12,13 +21,22 @@ namespace SevenPoker {
 * ReqJoinSevenPokerTable
 *
 **/
-    bool ReqJoinSevenPokerTable::Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload) {
+bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload) {
     const int number = payload["number"].int_value();
     const std::string& message = payload["message"].string_value();
     
     std::cout << "message: " << message << std::endl;
 
-    session->Send(ResJoinSevenPokerTable(true, 69, message).ToJson());
+    const std::shared_ptr<Player> player = TableManager::GetInstance().TryJoinTable(session);
+    if (player == nullptr) {
+        session->Send(ResJoinTable(true, 69, message).ToJson());
+        return true;
+    }
+
+    session->set_player(player);
+    
+    
+    //session->Send(ResJoinSevenPokerTable(true, 69, message).ToJson());
 
     return true;
 }
@@ -28,14 +46,14 @@ namespace SevenPoker {
 * ResJoinSevenPokerTable
 *
 **/
-ResJoinSevenPokerTable::ResJoinSevenPokerTable(
+ResJoinTable::ResJoinTable(
     bool success, 
     int32_t number, 
     const std::string& message
 ) : success_(success), number_(number), message_(message) {
 }
 
-Payload ResJoinSevenPokerTable::ToJson() {
+Payload ResJoinTable::ToJson() const {
     Json payload = Json::object{
         { "packet_id", static_cast<int>(kPacketId) },
         { "success", success_ },
@@ -45,5 +63,32 @@ Payload ResJoinSevenPokerTable::ToJson() {
     return payload;
 }
 
+/****************************************************************************
+*
+* ResJoinSevenPokerTable
+*
+**/
+NotiTablePlayerInfo::NotiTablePlayerInfo(GamePlay::Player* player) : player_(player) {
+
+}
+
+Payload NotiTablePlayerInfo::ToJson() const {
+    std::vector<Json> payload;
+    const Table& table = player_->table();
+    for (const auto player : table.players()) {
+        bool is_valid = false;
+        if (player != nullptr) {
+            is_valid = true;
+        }
+
+        Json json = Json::object{
+                    { "packet_id", static_cast<int>(kPacketId) },
+                    { "valid", is_valid },
+        };
+        payload.push_back(json);
+    }
+
+    return payload;
+}
 
 } // namespace SevenPoker
