@@ -2,17 +2,18 @@
 
 #include "GamePlay/Player.h"
 
-class SevenPokerTable;
-
 namespace SevenPoker {
 
-class SevenPokerPlayer : GamePlay::Player {
+class Table;
+
+class SevenPokerPlayer : public GamePlay::Player {
 public:
-    SevenPokerPlayer(SevenPokerTable& table, std::shared_ptr<Server::GameSession> session);
+    SevenPokerPlayer(Table& table, std::shared_ptr<Server::GameSession> session);
     virtual ~SevenPokerPlayer();
 
 private:
-    const SevenPokerTable& table_;
+    std::mutex mutex_;
+    const Table& table_;
 };
 
 } // namespace SevenPoker

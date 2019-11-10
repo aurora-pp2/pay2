@@ -16,6 +16,8 @@
 #include <memory>
 #include <array>
 #include <iostream>
+#include <mutex>
+#include <map>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/make_shared.hpp>

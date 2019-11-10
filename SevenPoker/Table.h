@@ -1,7 +1,5 @@
 #pragma once
 
-#include "GamePlay/Table.h"
-
 namespace Network {
 class Session;
 } // namespace Network
@@ -19,13 +17,12 @@ public:
     static const size_t kMaxPlayer = 5;
 
     ~Table() {}
-    std::shared_ptr<SevenPokerPlayer> JoinPlayer(std::shared_ptr<Server::GameSession> session);
     
 protected:
     bool is_available_seat() const;
 
 private:
-    
+    std::mutex mutex_;
     std::array<std::shared_ptr<SevenPokerPlayer>, kMaxPlayer> seats_ = { nullptr, };
 };
 

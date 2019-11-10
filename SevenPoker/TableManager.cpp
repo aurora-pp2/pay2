@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SevenPoker/TableManager.h"
-#include "SevenPoker/SevenPokerTable.h"
+#include "SevenPoker/Table.h"
 #include "Server/GameSession.h"
 
 namespace SevenPoker {
@@ -14,7 +14,8 @@ bool TableManager::Initialize() {
     return true;
 }
 
-std::shared_ptr<GamePlay::Player> TableManager::TryJoinTable(
+/*
+std::shared_ptr<SevenPokerPlayer> TableManager::TryJoinTable(
     std::shared_ptr<Server::GameSession> session
 ) {
     std::lock_guard<std::mutex> lock_(mutex_);
@@ -33,5 +34,6 @@ std::shared_ptr<GamePlay::Player> TableManager::TryJoinTable(
     }
     return it->second->JoinPlayer(session);
 }
+*/
 
 } // namespace SevenPoker

@@ -89,7 +89,7 @@
     <ClInclude Include="SevenPoker.h" />
     <ClInclude Include="SevenPokerPlayer.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="SevenPokerTable.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="TableManager.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -102,7 +102,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SevenPokerTable.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="TableManager.cpp" />
   </ItemGroup>
   <ItemGroup>

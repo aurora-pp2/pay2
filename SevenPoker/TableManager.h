@@ -11,13 +11,14 @@ namespace GamePlay {
 namespace SevenPoker {
 
 class Table;
+class SevenPokerPlayer;
     
 class TableManager {
 public:
     static TableManager& GetInstance();
     bool Initialize();
 
-    std::shared_ptr<GamePlay::Player> TryJoinTable(std::shared_ptr<Server::GameSession> session);
+    //std::shared_ptr<SevenPokerPlayer> TryJoinTable(std::shared_ptr<Server::GameSession> session);
 
 private:
     std::map<const Table*, std::shared_ptr<Table>> tables_;

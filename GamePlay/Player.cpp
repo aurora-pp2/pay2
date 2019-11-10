@@ -3,7 +3,7 @@
 
 namespace GamePlay {
 
-Player::Player(Table& table) : table_(table) {
+Player::Player(std::shared_ptr<Server::GameSession> session) : session_(session) {
 }
 
 

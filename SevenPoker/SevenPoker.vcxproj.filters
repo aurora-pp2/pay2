@@ -30,10 +30,10 @@
     <ClInclude Include="SevenPoker.h">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="SevenPokerTable.h">
+    <ClInclude Include="SevenPokerPlayer.h">
       <Filter>Private</Filter>
     </ClInclude>
-    <ClInclude Include="SevenPokerPlayer.h">
+    <ClInclude Include="Table.h">
       <Filter>Private</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClCompile Include="SevenPoker.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="SevenPokerTable.cpp">
+    <ClCompile Include="SevenPokerPlayer.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="SevenPokerPlayer.cpp">
+    <ClCompile Include="Table.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>

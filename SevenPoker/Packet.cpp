@@ -3,12 +3,12 @@
 
 // outer project
 #include "Server/GameSession.h"
-#include "GamePlay/Player.h"
+//#include "GamePlay/Player.h"
 
 // inner project 
 #include "SevenPoker/TableManager.h"
-#include "SevenPoker/SevenPokerTable.h"
-
+#include "SevenPoker/Table.h"
+#include "SevenPoker/SevenPokerPlayer.h"
 
 using Json = json11::Json;
 
@@ -27,14 +27,15 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
     
     std::cout << "message: " << message << std::endl;
 
-    const std::shared_ptr<Player> player = TableManager::GetInstance().TryJoinTable(session);
+    /*
+    std::shared_ptr<Player> player = TableManager::GetInstance().TryJoinTable(session);
     if (player == nullptr) {
         session->Send(ResJoinTable(true, 69, message).ToJson());
         return true;
     }
 
     session->set_player(player);
-    
+    */
     
     //session->Send(ResJoinSevenPokerTable(true, 69, message).ToJson());
 
@@ -74,6 +75,7 @@ NotiTablePlayerInfo::NotiTablePlayerInfo(GamePlay::Player* player) : player_(pla
 
 Payload NotiTablePlayerInfo::ToJson() const {
     std::vector<Json> payload;
+    /*
     const Table& table = player_->table();
     for (const auto player : table.players()) {
         bool is_valid = false;
@@ -87,6 +89,7 @@ Payload NotiTablePlayerInfo::ToJson() const {
         };
         payload.push_back(json);
     }
+    */
 
     return payload;
 }
