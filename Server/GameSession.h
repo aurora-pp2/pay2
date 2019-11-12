@@ -34,7 +34,7 @@ private:
     bool OnHandle(const std::string& payload) override;
 
     size_t uid_;
-    //std::shared_ptr<GamePlay::Player> player_;
+    
     std::weak_ptr<GamePlay::Player> player_;
     std::mutex mutex_;
 };

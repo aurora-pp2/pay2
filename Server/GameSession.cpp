@@ -52,7 +52,6 @@ void GameSession::OnRead(boost::beast::error_code ec, std::size_t bytes_transfer
 }
 
 bool GameSession::OnHandle(const std::string& payload) {
-
     std::cout << "payload: " << payload << std::endl;
     std::string err;
     const auto json = json11::Json::parse(payload, err);

@@ -9,6 +9,7 @@
 #include "SevenPoker/TableManager.h"
 #include "SevenPoker/Table.h"
 #include "SevenPoker/SevenPokerPlayer.h"
+#include "Message.h"
 
 using Json = json11::Json;
 
@@ -27,6 +28,21 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
     
     std::cout << "message: " << message << std::endl;
 
+    Table t;
+    
+    auto p = std::make_shared<SevenPokerPlayer>(t, session);
+    session->set_player(p);
+    
+    auto player = session->player();
+    //IntMessage msg;
+    FloatMessage msg;
+    player->OnEvent(msg);
+    /*
+    if (player != nullptr) {
+        auto seven_poker_player = static_cast<SevenPokerPlayer*>(player.get());
+        seven_poker_player->UniqueFunction();
+    }
+    */
     /*
     std::shared_ptr<Player> player = TableManager::GetInstance().TryJoinTable(session);
     if (player == nullptr) {
