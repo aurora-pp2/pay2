@@ -17,8 +17,9 @@ public:
     virtual ~Player();
 
     virtual void OnEvent(const Message& msg) = 0;
-private:
+    virtual std::shared_ptr<Server::GameSession> session() const = 0;
 
+protected:
     std::weak_ptr<Server::GameSession> session_;
 };
 

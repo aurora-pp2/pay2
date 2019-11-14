@@ -41,4 +41,8 @@ void SevenPokerPlayer::OnEvent(const Message& msg) {
     }
 }
 
+std::shared_ptr<Server::GameSession> SevenPokerPlayer::session() const {
+    return session_.lock();
+}
+
 } // namespace SevenPoker

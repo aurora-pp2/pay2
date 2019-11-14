@@ -14,21 +14,22 @@ bool TableManager::Initialize() {
     return true;
 }
 
-Table* TableManager::GetTable() {
-    for (const auto& [key, table] : tables_) {
+std::shared_ptr<SevenPokerPlayer> TableManager::JoinTable(std::shared_ptr<Server::GameSession> session) {
+    std::lock_guard<std::mutex> lock_(mutex_);
+
+    for (const auto&[key, table] : tables_) {
         if (table->is_available_seat()) {
-            return table.get();
+            return table->JoinPlayer(session);
         }
     }
-    
+
     auto table = std::make_unique<Table>();
-    const auto& [it, result] = tables_.try_emplace(table.get(), std::move(table));
+    const auto&[it, result] = tables_.try_emplace(table.get(), std::move(table));
     if (!result) {
         return nullptr;
     }
-    return table.get();
+    return it->second->JoinPlayer(session);
 }
-
 /*
 std::shared_ptr<SevenPokerPlayer> TableManager::TryJoinTable(
     std::shared_ptr<Server::GameSession> session

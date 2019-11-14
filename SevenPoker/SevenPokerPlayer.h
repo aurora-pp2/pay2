@@ -12,6 +12,7 @@ public:
     virtual~SevenPokerPlayer();
 
     void OnEvent(const GamePlay::Message& msg) override;
+    std::shared_ptr<Server::GameSession> session() const override;
 
 private:
     std::mutex mutex_;

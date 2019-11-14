@@ -28,11 +28,12 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
     
     std::cout << "message: " << message << std::endl;
 
-    const Table* table = TableManager::GetInstance().GetTable();
-    if (table == nullptr) {
+    const auto player = TableManager::GetInstance().JoinTable(session);
+    if (player == nullptr) {
         return false;
     }
 
+    session->set_player(player);
 
 
     /*
@@ -92,12 +93,21 @@ Payload ResJoinTable::ToJson() const {
 * ResJoinSevenPokerTable
 *
 **/
-NotiTablePlayerInfo::NotiTablePlayerInfo(GamePlay::Player* player) : player_(player) {
+NotiJoinedPlayer::NotiJoinedPlayer(GamePlay::Player* player) : player_(player) {
 
 }
 
-Payload NotiTablePlayerInfo::ToJson() const {
-    std::vector<Json> payload;
+std::optional<Json> NotiJoinedPlayer::ToJson() const {
+    const auto session = player_->session();
+    if (session == nullptr) {
+        return {};
+    }
+
+    auto user_info = session->user_info();
+    Json payload = Json::object { 
+        { "money", std::to_string(user_info->financial_status().money()) }
+    };
+    //std::vector<Json> payload;
     /*
     const Table& table = player_->table();
     for (const auto player : table.players()) {

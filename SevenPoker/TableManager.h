@@ -19,8 +19,7 @@ public:
     bool Initialize();
 
     
-    Table* JoinPlayer(std::shared_ptr<Server::GameSession> session);
-    //std::shared_ptr<SevenPokerPlayer> TryJoinTable(std::shared_ptr<Server::GameSession> session);
+    std::shared_ptr<SevenPokerPlayer> JoinTable(std::shared_ptr<Server::GameSession> session);
 
 private:
     std::map<const Table*, std::unique_ptr<Table>> tables_;

@@ -14,6 +14,27 @@ class GameSession;
 
 using HandlerCallback = std::function<bool(std::shared_ptr<GameSession>, const Payload&)>;
 
+class FinancialStatus {
+public:
+    int64_t money() const;
+    void set_money(int64_t money);
+    void SetDeltaMoney(int64_t add_money);
+
+private:
+    int64_t money_ = 0;
+};
+
+class UserInfo {
+public:
+    FinancialStatus& financial_status();
+
+private:
+    size_t id_;
+    std::string name_;
+    std::string avatar_path_;
+    FinancialStatus financial_status_;
+};
+
 class GameSession : public Network::Session {
 public:
     explicit GameSession(boost::asio::ip::tcp::socket socket);
@@ -29,12 +50,17 @@ public:
     size_t uid() const;
     void set_uid(size_t uid);
 
+    std::shared_ptr<UserInfo> user_info() const;
+    void set_user_info(std::shared_ptr<UserInfo> user_info);
+
 private:
     void OnRead(boost::beast::error_code ec, std::size_t bytes_transferred) override;
     bool OnHandle(const std::string& payload) override;
 
     size_t uid_;
     
+    std::shared_ptr<UserInfo> user_info_;
+
     std::weak_ptr<GamePlay::Player> player_;
     std::mutex mutex_;
 };

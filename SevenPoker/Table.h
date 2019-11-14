@@ -19,11 +19,11 @@ public:
     ~Table() {}
     
     bool is_available_seat();
-    bool JoinPlayer(std::shared_ptr < Server::GameSession session);
+    std::shared_ptr<SevenPokerPlayer> JoinPlayer(std::shared_ptr <Server::GameSession> session);
 
 private:
     std::mutex mutex_;
-    std::array<std::shared_ptr<SevenPokerPlayer>, kMaxPlayer> seats_ = { nullptr, };
+    std::array<std::shared_ptr<SevenPokerPlayer>, kMaxPlayer> players_ = { nullptr, };
 };
 
 }

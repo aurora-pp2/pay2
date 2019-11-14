@@ -12,7 +12,7 @@ namespace GamePlay {
 
 namespace SevenPoker {
 
-enum PacketType { kReqJoinSevenTable = 20, kResJoinSevenTable, kNotiSevenTablePlayerInfo, kNotiOtherPlayerLeaveSevenTable };
+enum PacketType { kReqJoinSevenTable = 20, kResJoinSevenTable, kNotiJoinedPlayer, kNotiOtherPlayerLeaveSevenTable };
 
 struct ReqJoinTable {
     static const size_t kPacketId = kReqJoinSevenTable;
@@ -33,13 +33,13 @@ struct ResJoinTable {
     Payload ToJson() const;
 };
 
-struct NotiTablePlayerInfo {
-    static const size_t kPacketId = kNotiSevenTablePlayerInfo;
+struct NotiJoinedPlayer {
+    static const size_t kPacketId = kNotiJoinedPlayer;
 
-    NotiTablePlayerInfo(GamePlay::Player*);
+    NotiJoinedPlayer(GamePlay::Player* player);
    
     GamePlay::Player* player_;
-    Payload ToJson() const;
+    std::optional<Payload> ToJson() const;
 };
 
 /*

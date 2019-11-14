@@ -18,6 +18,7 @@
 #include <iostream>
 #include <mutex>
 #include <map>
+#include <optional>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/make_shared.hpp>
