@@ -18,8 +18,8 @@ public:
 
     ~Table() {}
     
-protected:
-    bool is_available_seat() const;
+    bool is_available_seat();
+    bool JoinPlayer(std::shared_ptr < Server::GameSession session);
 
 private:
     std::mutex mutex_;

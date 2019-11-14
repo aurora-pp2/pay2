@@ -8,14 +8,14 @@ class Table;
 
 class SevenPokerPlayer : public GamePlay::Player {
 public:
-    SevenPokerPlayer(Table& table, std::shared_ptr<Server::GameSession> session);
-    virtual ~SevenPokerPlayer();
+    SevenPokerPlayer(std::shared_ptr<Server::GameSession> session, Table* table);
+    virtual~SevenPokerPlayer();
 
     void OnEvent(const GamePlay::Message& msg) override;
 
 private:
     std::mutex mutex_;
-    const Table& table_;
+    Table* table_ = nullptr;
 };
 
-} // namespace SevenPoker
+} // namespace SevenPoker100

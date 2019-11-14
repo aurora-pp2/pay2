@@ -28,15 +28,22 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
     
     std::cout << "message: " << message << std::endl;
 
+    const Table* table = TableManager::GetInstance().GetTable();
+    if (table == nullptr) {
+        return false;
+    }
+
+
+
+    /*
     Table t;
-    
     auto p = std::make_shared<SevenPokerPlayer>(t, session);
     session->set_player(p);
     
     auto player = session->player();
-    //IntMessage msg;
     FloatMessage msg;
     player->OnEvent(msg);
+    */
     /*
     if (player != nullptr) {
         auto seven_poker_player = static_cast<SevenPokerPlayer*>(player.get());

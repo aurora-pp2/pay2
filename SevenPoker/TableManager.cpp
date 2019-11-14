@@ -14,6 +14,21 @@ bool TableManager::Initialize() {
     return true;
 }
 
+Table* TableManager::GetTable() {
+    for (const auto& [key, table] : tables_) {
+        if (table->is_available_seat()) {
+            return table.get();
+        }
+    }
+    
+    auto table = std::make_unique<Table>();
+    const auto& [it, result] = tables_.try_emplace(table.get(), std::move(table));
+    if (!result) {
+        return nullptr;
+    }
+    return table.get();
+}
+
 /*
 std::shared_ptr<SevenPokerPlayer> TableManager::TryJoinTable(
     std::shared_ptr<Server::GameSession> session

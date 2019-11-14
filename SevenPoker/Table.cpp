@@ -7,7 +7,9 @@ using namespace GamePlay;
 
 namespace SevenPoker {
 
-bool Table::is_available_seat() const {
+bool Table::is_available_seat() {
+    std::lock_guard<std::mutex> lock(mutex_);
+
     for (const auto& seat : seats_) {
         if (seat == nullptr) {
             return true;
