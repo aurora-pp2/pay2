@@ -23,11 +23,9 @@ namespace SevenPoker {
 *
 **/
 bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload) {
-    const int number = payload["number"].int_value();
-    const std::string& message = payload["message"].string_value();
+    const bool random_table = payload["random_table"].bool_value();
+    const std::string password = payload["password"].string_value();
     
-    std::cout << "message: " << message << std::endl;
-
     const auto player = TableManager::GetInstance().JoinTable(session);
     if (player == nullptr) {
         return false;
@@ -35,7 +33,7 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
 
     session->set_player(player);
 
-
+    //player->OnEvent()
     /*
     Table t;
     auto p = std::make_shared<SevenPokerPlayer>(t, session);
@@ -93,7 +91,7 @@ Payload ResJoinTable::ToJson() const {
 * ResJoinSevenPokerTable
 *
 **/
-NotiJoinedPlayer::NotiJoinedPlayer(GamePlay::Player* player) : player_(player) {
+NotiJoinedPlayer::NotiJoinedPlayer(SevenPokerPlayer* player) : player_(player) {
 
 }
 
@@ -104,8 +102,14 @@ std::optional<Json> NotiJoinedPlayer::ToJson() const {
     }
 
     auto user_info = session->user_info();
+    if (user_info == nullptr) {
+        return {};
+    }
     Json payload = Json::object { 
-        { "money", std::to_string(user_info->financial_status().money()) }
+        { "id", std::to_string(user_info->id()) },
+        { "name", user_info->name() },
+        { "money", std::to_string(user_info->financial_status().money()) },
+        { "seat_index", player_->table_index() }
     };
     //std::vector<Json> payload;
     /*

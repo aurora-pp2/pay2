@@ -19,6 +19,7 @@ protected:
     virtual void OnRead(boost::beast::error_code ec, std::size_t bytes_transferred);
 
     virtual bool OnHandle(const std::string& payload) = 0;
+    virtual void OnDisconnected(boost::beast::error_code ec) = 0;
 
     void OnSend(SharedPtr<std::string const> const& payload);
     void OnWrite(boost::beast::error_code ec, std::size_t);

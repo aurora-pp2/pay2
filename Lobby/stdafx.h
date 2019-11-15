@@ -12,3 +12,14 @@
 
 
 // reference additional headers your program requires here
+#include <iostream>
+
+
+#include <boost/asio/io_context.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/asio/ip/tcp.hpp>
+
+#include <boost/beast/core.hpp>
+#include <boost/beast/websocket.hpp>
+#include <boost/asio/strand.hpp>
+#include <boost/smart_ptr.hpp>

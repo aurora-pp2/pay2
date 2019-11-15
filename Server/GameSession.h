@@ -18,7 +18,7 @@ class FinancialStatus {
 public:
     int64_t money() const;
     void set_money(int64_t money);
-    void SetDeltaMoney(int64_t add_money);
+    void SetDeltaMoney(int64_t delta_money);
 
 private:
     int64_t money_ = 0;
@@ -27,6 +27,15 @@ private:
 class UserInfo {
 public:
     FinancialStatus& financial_status();
+
+    size_t id() const;
+    void set_id(size_t id);
+
+    const std::string& name() const;
+    void set_name(const std::string& id);
+
+    const std::string& avatar_path() const;
+    void set_avatar_path_(const std::string& avatar_path);
 
 private:
     size_t id_;
@@ -56,6 +65,7 @@ public:
 private:
     void OnRead(boost::beast::error_code ec, std::size_t bytes_transferred) override;
     bool OnHandle(const std::string& payload) override;
+    void OnDisconnected(boost::beast::error_code ec) override;
 
     size_t uid_;
     

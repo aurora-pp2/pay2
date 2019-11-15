@@ -17,6 +17,7 @@ public:
     virtual ~Player();
 
     virtual void OnEvent(const Message& msg) = 0;
+    virtual void OnDisconnected() = 0;
     virtual std::shared_ptr<Server::GameSession> session() const = 0;
 
 protected:

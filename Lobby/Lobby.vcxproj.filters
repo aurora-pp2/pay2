@@ -18,10 +18,31 @@
     <ClInclude Include="targetver.h">
       <Filter>Private\Pch</Filter>
     </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Lobby.h">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Private\Pch</Filter>
     </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Lobby.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

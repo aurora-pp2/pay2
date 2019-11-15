@@ -1,6 +1,7 @@
 #include "stdafx.h"
-
 #include "Server/GameSession.h"
+
+#include "GamePlay/Player.h"
 
 using namespace Network;
 
@@ -40,6 +41,30 @@ void FinancialStatus::SetDeltaMoney(int64_t delta_money) {
 * UserInfo
 *
 **/
+size_t UserInfo::id() const {
+    return id_;
+}
+
+void UserInfo::set_id(size_t id) {
+    id_ = id;
+}
+
+const std::string& UserInfo::name() const {
+    return name_;
+}
+
+void UserInfo::set_name(const std::string& name) {
+    name_ = name;
+}
+
+const std::string& UserInfo::avatar_path() const {
+    return avatar_path_;
+}
+
+void UserInfo::set_avatar_path_(const std::string& avatar_path) {
+    avatar_path_ = avatar_path;
+}
+
 FinancialStatus& UserInfo::financial_status() {
     return financial_status_;
 }
@@ -65,21 +90,34 @@ bool GameSession::RegisterHandler(int packet_id, HandlerCallback handler) {
 }
 
 void GameSession::Send(const Payload& payload) {
-    std::string json_str = payload.dump();
+    const std::string json_str = payload.dump();
     Session::Send(std::make_shared<std::string>(std::move(json_str)));
 }
 
 void GameSession::OnRead(boost::beast::error_code ec, std::size_t bytes_transferred) {
+    if (ec) {
+        Fail(ec, "[Error] OnRead error_code");
+        return OnDisconnected(ec);
+    }
+
+    if (bytes_transferred <= 0) {
+        Fail(ec, "[Error] OnRead bytes_transferred");
+        return OnDisconnected(ec);
+    }
+
     if (!OnHandle(boost::beast::buffers_to_string(buffer_.data()))) {
         Close();
         return;
     }
 
-    if (ec) {
-        return Fail(ec, "read");
-    }
-
     Session::OnRead(ec, bytes_transferred);
+}
+
+void GameSession::OnDisconnected(boost::beast::error_code ec) {
+    auto player = player_.lock();
+    if (player != nullptr) {
+        player->OnDisconnected();
+    }
 }
 
 bool GameSession::OnHandle(const std::string& payload) {

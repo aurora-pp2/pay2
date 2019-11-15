@@ -24,25 +24,29 @@ std::shared_ptr<SevenPokerPlayer> Table::JoinPlayer(std::shared_ptr <Server::Gam
     std::lock_guard<std::mutex> lock(mutex_);
 
     auto player = std::make_shared<SevenPokerPlayer>(session, this);
+    auto index = 0;
     for (auto i = 0; i < players_.size(); ++i) {
         if (players_[i] != nullptr) {
             continue;
         }
         players_[i] = player;
+        index = i;
     }
 
     auto payload = NotiJoinedPlayer(player.get()).ToJson();
     if (!payload.has_value()) {
+        players_[index] = nullptr;
         return nullptr;
     }
-    for (const auto player : players_) {
-        const auto session = player->session();
-        if (session != nullptr) {
-            session->Send(payload.value());
+
+    player->set_table_index(index);
+
+    for (const auto poker_player : players_) {
+        const auto player_session = poker_player->session();
+        if (player_session != nullptr) {
+            player_session->Send(payload.value());
         }
     }
-
-    // broadcast all
 
     return player;
 }

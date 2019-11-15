@@ -99,6 +99,9 @@
     <ProjectReference Include="..\GamePlay\GamePlay.vcxproj">
       <Project>{dbfc339e-9c69-46e9-a44f-18de82da51a9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Lobby\Lobby.vcxproj">
+      <Project>{077b8f3e-c3b6-41c1-9034-f2834631ab95}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Network\Network.vcxproj">
       <Project>{2e8e3cc7-e9b5-4152-ab51-2b0b0ad6d7fe}</Project>
     </ProjectReference>

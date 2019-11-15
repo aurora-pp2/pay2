@@ -41,8 +41,20 @@ void SevenPokerPlayer::OnEvent(const Message& msg) {
     }
 }
 
+void SevenPokerPlayer::OnDisconnected() {
+    std::cout << "disconnected" << std::endl;
+}
+
 std::shared_ptr<Server::GameSession> SevenPokerPlayer::session() const {
     return session_.lock();
+}
+
+int32_t SevenPokerPlayer::table_index() const {
+    return table_index_;
+}
+
+void SevenPokerPlayer::set_table_index(int32_t index) {
+    table_index_ = index;
 }
 
 } // namespace SevenPoker

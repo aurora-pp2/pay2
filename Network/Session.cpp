@@ -45,8 +45,9 @@ void Session::Start() {
 
 void Session::OnAccept(boost::beast::error_code ec) {
     if (ec) {
-        //return HandleFailure(ec, "accept");
+        return Fail(ec, "accept");
     }
+    std::cout << "Á¢¼Ó" << std::endl;
     // Read a message
     DoRead();
 }
@@ -158,7 +159,7 @@ void Session::OnWrite(boost::beast::error_code ec, std::size_t) {
 }
 
 void Session::Close() {
-
+    /*
     boost::asio::post(
         websocket_.get_executor(),
         boost::beast::bind_front_handler(
@@ -167,14 +168,15 @@ void Session::Close() {
             }
         )
     );
+    */
 
-    /*
+    
     try {
         websocket_.close(boost::beast::websocket::close_reason());
     } catch (...) {
         std::cout << boost::current_exception_diagnostic_information() << std::endl;
     }
-    */
+    
     /*
     catch (const boost::exception& e) {
         e.what();

@@ -1,12 +1,13 @@
 #include "pch.h"
 
 #include "Server/GameServer.h"
+#include "Lobby/Lobby.h"
 #include "SevenPoker/SevenPoker.h"
 
 static std::mutex m;
 static std::condition_variable cv;
 static std::atomic_bool is_stop = false;
-static const int thread_count = 1;
+static const int thread_count = 4;
 
 static void SignalHandler(int /*signal_val*/) {
     //std::sig_atomic_t v = signal_val;
@@ -15,6 +16,7 @@ static void SignalHandler(int /*signal_val*/) {
 }
 
 static bool Initialize() {
+    if (!Lobby::Initialize()) return false;
     if (!SevenPoker::Initialize()) return false;
     return true;
 }
