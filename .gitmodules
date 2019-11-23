@@ -1,0 +1,3 @@
+[submodule "ddpoker"]
+	path = ddpoker
+	url = https://github.com/aurora-pp2/ddpoker.git
