@@ -13,6 +13,7 @@ namespace GamePlay {
 namespace SevenPoker {
 
 class SevenPokerPlayer;
+class Table;
 
 enum PacketType { kReqJoinSevenTable = 20, kResJoinSevenTable, kNotiJoinedPlayer, kNotiOtherPlayerLeaveSevenTable };
 
@@ -20,18 +21,17 @@ struct ReqJoinTable {
     static const size_t kPacketId = kReqJoinSevenTable;
     static bool Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload);
 
-    bool random_table;
+    bool is_random_table;
     std::string password;
 };
 
 struct ResJoinTable {
     static const size_t kPacketId = kResJoinSevenTable;
 
-    ResJoinTable(bool success, int32_t number, const std::string& message);
+    //ResJoinTable(bool success, int32_t number, const std::string& message);
+    ResJoinTable(const Table* table);
 
-    bool success_ = false;
-    int number_ = 1;
-    std::string message_;
+    const Table* table_ = nullptr;
     Payload ToJson() const;
 };
 

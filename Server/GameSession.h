@@ -28,8 +28,8 @@ class UserInfo {
 public:
     FinancialStatus& financial_status();
 
-    size_t id() const;
-    void set_id(size_t id);
+    size_t uid() const;
+    void set_uid(size_t id);
 
     const std::string& name() const;
     void set_name(const std::string& id);
@@ -38,7 +38,7 @@ public:
     void set_avatar_path_(const std::string& avatar_path);
 
 private:
-    size_t id_;
+    size_t uid_;
     std::string name_;
     std::string avatar_path_;
     FinancialStatus financial_status_;
@@ -56,9 +56,6 @@ public:
     std::shared_ptr<GamePlay::Player> player() const;
     void set_player(std::shared_ptr<GamePlay::Player> player);
 
-    size_t uid() const;
-    void set_uid(size_t uid);
-
     std::shared_ptr<UserInfo> user_info() const;
     void set_user_info(std::shared_ptr<UserInfo> user_info);
 
@@ -67,10 +64,8 @@ private:
     bool OnHandle(const std::string& payload) override;
     void OnDisconnected(boost::beast::error_code ec) override;
 
-    size_t uid_;
-    
+   
     std::shared_ptr<UserInfo> user_info_;
-
     std::weak_ptr<GamePlay::Player> player_;
     std::mutex mutex_;
 };

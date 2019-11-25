@@ -41,12 +41,12 @@ void FinancialStatus::SetDeltaMoney(int64_t delta_money) {
 * UserInfo
 *
 **/
-size_t UserInfo::id() const {
-    return id_;
+size_t UserInfo::uid() const {
+    return uid_;
 }
 
-void UserInfo::set_id(size_t id) {
-    id_ = id;
+void UserInfo::set_uid(size_t uid) {
+    uid_ = uid;
 }
 
 const std::string& UserInfo::name() const {
@@ -144,14 +144,6 @@ std::shared_ptr<GamePlay::Player> GameSession::player() const {
 void GameSession::set_player(std::shared_ptr<GamePlay::Player> player) {
     //std::atomic_exchange(&player_, player);
     player_ = player;
-}
-
-size_t GameSession::uid() const {
-    return uid_;
-}
-
-void GameSession::set_uid(size_t uid) {
-    uid_ = uid;
 }
 
 std::shared_ptr<UserInfo>GameSession::user_info() const {

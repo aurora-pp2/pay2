@@ -17,7 +17,7 @@ bool TableManager::Initialize() {
 std::shared_ptr<SevenPokerPlayer> TableManager::JoinTable(std::shared_ptr<Server::GameSession> session) {
     std::lock_guard<std::mutex> lock_(mutex_);
 
-    for (const auto&[key, table] : tables_) {
+    for (const auto& [key, table] : tables_) {
         if (table->is_available_seat()) {
             return table->JoinPlayer(session);
         }

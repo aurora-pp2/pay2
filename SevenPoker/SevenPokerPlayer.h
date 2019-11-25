@@ -2,6 +2,10 @@
 
 #include "GamePlay/Player.h"
 
+namespace Server {
+class UserInfo;
+}
+
 namespace SevenPoker {
 
 class Table;
@@ -19,10 +23,13 @@ public:
     int32_t table_index() const;
     void set_table_index(int32_t index);
 
+    std::shared_ptr<Server::UserInfo> user_info() const;
+
 private:
     Table* table_ = nullptr;
-    size_t id_ = 0;
+    std::shared_ptr<Server::UserInfo> user_info_;
     int32_t table_index_ = 0;
+
 
     std::mutex mutex_;
 };

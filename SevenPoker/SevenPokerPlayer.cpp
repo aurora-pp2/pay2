@@ -3,6 +3,8 @@
 #include "SevenPoker/Table.h"
 #include "SevenPoker/Message.h"
 
+#include "Server/GameSession.h"
+
 using namespace GamePlay;
 
 namespace SevenPoker {
@@ -28,9 +30,8 @@ static const std::unordered_map<uint32_t, MessageHandler> handlers = {
 SevenPokerPlayer::SevenPokerPlayer(
     std::shared_ptr<Server::GameSession> session,
     Table* table
-) : Player(session), table_(table) {
+) : Player(session), table_(table), user_info_(session->user_info()) {
 }
-
 
 SevenPokerPlayer::~SevenPokerPlayer() = default;
 
@@ -57,4 +58,7 @@ void SevenPokerPlayer::set_table_index(int32_t index) {
     table_index_ = index;
 }
 
+std::shared_ptr<Server::UserInfo> SevenPokerPlayer::user_info() const {
+    return user_info_;
+}
 } // namespace SevenPoker

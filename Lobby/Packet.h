@@ -34,7 +34,7 @@ struct ResUserInfo {
     );
 
     bool success_ = false;
-    std::string id_;
+    std::string uid_;
     std::string name_;
     std::string avatar_path_;
     std::string money_;

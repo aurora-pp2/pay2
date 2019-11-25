@@ -20,6 +20,7 @@ public:
     
     bool is_available_seat();
     std::shared_ptr<SevenPokerPlayer> JoinPlayer(std::shared_ptr <Server::GameSession> session);
+    const std::array<std::shared_ptr<SevenPokerPlayer>, kMaxPlayer>& players() const;
 
 private:
     std::mutex mutex_;

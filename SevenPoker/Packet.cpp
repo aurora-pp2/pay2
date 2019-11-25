@@ -23,7 +23,7 @@ namespace SevenPoker {
 *
 **/
 bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const Payload& payload) {
-    const bool random_table = payload["random_table"].bool_value();
+    const bool is_random_table = payload["is_random_table"].bool_value();
     const std::string password = payload["password"].string_value();
     
     const auto player = TableManager::GetInstance().JoinTable(session);
@@ -70,20 +70,30 @@ bool ReqJoinTable::Handler(std::shared_ptr<Server::GameSession> session, const P
 *
 **/
 ResJoinTable::ResJoinTable(
-    bool success, 
-    int32_t number, 
-    const std::string& message
-) : success_(success), number_(number), message_(message) {
+    const Table* table
+) : table_(table) {
 }
 
 Payload ResJoinTable::ToJson() const {
-    Json payload = Json::object{
-        { "packet_id", static_cast<int>(kPacketId) },
-        { "success", success_ },
-        { "number", number_ },
-        { "message", message_ },
-    };
-    return payload;
+    //Json payload;
+    const std::array<std::shared_ptr<SevenPokerPlayer>, Table::kMaxPlayer>& players = table_->players();
+    std::vector<Json::object> json_objects;
+    for (auto index = 0; index < players.size(); ++index) {
+        if (players[index] != nullptr) {
+            const auto user_info = players[index]->user_info();
+            if (user_info == nullptr) {
+                continue;
+            }
+           auto json_object = Json::object{
+               { "uid", std::to_string(user_info->uid()) },
+               { "name", user_info->name() },
+               { "money", std::to_string(user_info->financial_status().money()) },
+               { "table_index", index }
+            };
+            json_objects.push_back(json_object);
+        }
+    }
+    return { json_objects };
 }
 
 /****************************************************************************
@@ -106,7 +116,7 @@ std::optional<Json> NotiJoinedPlayer::ToJson() const {
         return {};
     }
     Json payload = Json::object { 
-        { "id", std::to_string(user_info->id()) },
+        { "id", std::to_string(user_info->uid()) },
         { "name", user_info->name() },
         { "money", std::to_string(user_info->financial_status().money()) },
         { "seat_index", player_->table_index() }
