@@ -93,7 +93,7 @@ Payload ResJoinTable::ToJson() const {
             json_objects.push_back(json_object);
         }
     }
-    return { json_objects };
+    return json_objects;
 }
 
 /****************************************************************************

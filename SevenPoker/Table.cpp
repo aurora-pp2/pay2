@@ -32,22 +32,13 @@ std::shared_ptr<SevenPokerPlayer> Table::JoinPlayer(std::shared_ptr <Server::Gam
         players_[i] = player;
         index = i;
     }
-
-    const auto payload = ResJoinTable(this).ToJson();
-    /*
-    auto payload = NotiJoinedPlayer(player.get()).ToJson();
-    if (!payload.has_value()) {
-        players_[index] = nullptr;
-        return nullptr;
-    }
-    */
-
     player->set_table_index(index);
 
-    for (const auto poker_player : players_) {
+    const auto res_join_table = ResJoinTable(this).ToJson();
+    for (const auto& poker_player : players_) {
         const auto player_session = poker_player->session();
         if (player_session != nullptr) {
-            player_session->Send(payload);
+            player_session->Send(res_join_table);
         }
     }
 
